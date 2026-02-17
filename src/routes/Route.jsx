@@ -1,0 +1,11 @@
+import Home from "../pages/Home";
+import About from "../pages/About";
+import RegisterPage from "../pages/Signup";
+import Login from "../pages/Login";
+const routes = [
+    {path:"/", element:<Home />},
+    {path:"/login", element:<Login />},
+    {path:"/about", element:<About />},
+    {path:"/signup", element:<RegisterPage />}
+]
+export default routes;
