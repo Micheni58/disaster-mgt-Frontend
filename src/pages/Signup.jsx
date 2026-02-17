@@ -1,8 +1,10 @@
 import SignUpForm from "../components/SignUpForm";
+import Navbar from "../components/Navbar";
 
 function RegisterPage(){
     return (
-        <div className="min-h-screen bg-linear-to-br from-green-600 to-green-500 flex items-center">
+        <div className="min-h-screen bg-linear-to-br from-green-600 to-green-500  items-center">
+            <Navbar />
             <div className="container mx-auto px-6">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     <div className="text-white px-4">
