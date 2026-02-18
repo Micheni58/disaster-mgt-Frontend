@@ -26,17 +26,17 @@ function SignUpForm(){
             <form action="" className="bg-white max-w-lg w-full p-6 rounded-lg shadow-md">
                 <label className="font-medium block mb-3">Select Your Role</label>
                 <div className="flex justify-between gap-4 mb-6">
-                    <button type="button" onClick={() => setSelectedRole('Citizen')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Citizen' ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
+                    <button type="button" onClick={() => setSelectedRole('Citizen')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Citizen' ? 'border-green-600 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
                         <FaUser className="text-2xl mb-2" />
                         <h2 className="font-semibold">Citizen</h2>
                         <p className="text-sm text-gray-500">Report Incidents</p>
                     </button>
-                    <button type="button" onClick={() => setSelectedRole('Responder')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Responder' ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
+                    <button type="button" onClick={() => setSelectedRole('Responder')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Responder' ? 'border-green-600 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
                         <FaAmbulance className="text-2xl mb-2" />
                         <h2 className="font-semibold">Responder</h2>
                         <p className="text-sm text-gray-500">Emergency Personnel</p>
                     </button>
-                    <button type="button" onClick={() => setSelectedRole('Officer')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Officer' ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
+                    <button type="button" onClick={() => setSelectedRole('Officer')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Officer' ? 'border-green-600 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
                         <FaUserShield className="text-2xl mb-2" />
                         <h2 className="font-semibold">Officer</h2>
                         <p className="text-sm text-gray-500">System Admin</p>
