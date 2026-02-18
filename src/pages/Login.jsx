@@ -8,7 +8,7 @@ function Login(){
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-green-600 to-green-500  items-center">
+        <div className="min-h-screen bg-linear-to-br from-green-900 to-green-400  items-center">
             <Navbar />
             <div className="container mx-auto px-6 py-12">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
