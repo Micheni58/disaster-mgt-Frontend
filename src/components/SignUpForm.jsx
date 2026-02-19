@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaUser, FaAmbulance, FaUserShield, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 import { showSuccessToast, showErrorToast, showWarningToast } from "../utils/toastNotifications";
 
 function SignUpForm(){
@@ -7,6 +9,8 @@ function SignUpForm(){
     const [form, setForm] = useState({ fullName: '', email: '', phone: '', organization: '', password: '', confirm: '' });
     const [agree, setAgree] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { signup } = useAuth();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -52,17 +56,31 @@ function SignUpForm(){
 
         setLoading(true);
         try {
-            // Simulate API call
-            await new Promise(res => setTimeout(res, 1000));
-            
-            showSuccessToast(`✓ Account created successfully as ${selectedRole}! Welcome aboard`);
-            
-            // Reset form
-            setForm({ fullName: '', email: '', phone: '', organization: '', password: '', confirm: '' });
-            setAgree(false);
-            setSelectedRole('Citizen');
-            
-            // TODO: Redirect to login or dashboard
+            // Use AuthContext signup
+            const result = await signup({
+                fullName: form.fullName,
+                email: form.email,
+                phone: form.phone,
+                organization: form.organization,
+                role: selectedRole
+            });
+
+            if (result.success) {
+                showSuccessToast(`✓ Account created successfully as ${selectedRole}! Welcome aboard`);
+                
+                // Redirect to appropriate dashboard
+                setTimeout(() => {
+                    if(selectedRole === 'Citizen') {
+                        navigate('/dashboard/citizen');
+                    } else if(selectedRole === 'Responder') {
+                        navigate('/dashboard/responder');
+                    } else if(selectedRole === 'Officer') {
+                        navigate('/dashboard/admin');
+                    }
+                }, 1000);
+            } else {
+                showErrorToast('Account creation failed. Please try again');
+            }
         } catch (err) {
             showErrorToast('Account creation failed. Please try again');
         } finally {

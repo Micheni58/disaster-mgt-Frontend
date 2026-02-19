@@ -1,8 +1,24 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar(){
     const [open, setOpen] = useState(false);
+    const { isAuthenticated, user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+        setOpen(false);
+    };
+
+    const getDashboardPath = () => {
+        if(user?.role === 'Citizen') return '/dashboard/citizen';
+        if(user?.role === 'Responder') return '/dashboard/responder';
+        if(user?.role === 'Officer') return '/dashboard/admin';
+        return '/';
+    };
 
     return (
         <nav className="w-full bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow">
@@ -24,12 +40,31 @@ function Navbar(){
                         <NavLink to="/about" className={({isActive}) => `text-gray-700 hover:text-green-600 ${isActive? 'text-green-700':''}`}>
                             About
                         </NavLink>
-                        <NavLink to="/login" className={({isActive}) => `text-gray-700 hover:text-green-600 ${isActive? 'text-green-700':''}`}>
-                            Login
-                        </NavLink>
-                        <NavLink to="/signup" className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-600 text-white' : 'bg-green-600 text-white/95 hover:opacity-95'}`}>
-                            Sign Up
-                        </NavLink>
+                        {isAuthenticated ? (
+                            <>
+                                <NavLink to={getDashboardPath()} className={({isActive}) => `text-gray-700 hover:text-green-600 ${isActive? 'text-green-700':''}`}>
+                                    Dashboard
+                                </NavLink>
+                                <div className="flex items-center gap-3 pl-3 border-l border-gray-300">
+                                    <span className="text-sm text-gray-600">{user?.fullName}</span>
+                                    <button 
+                                        onClick={handleLogout}
+                                        className="px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 text-sm"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink to="/login" className={({isActive}) => `text-gray-700 hover:text-green-600 ${isActive? 'text-green-700':''}`}>
+                                    Login
+                                </NavLink>
+                                <NavLink to="/signup" className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-600 text-white' : 'bg-green-600 text-white/95 hover:opacity-95'}`}>
+                                    Sign Up
+                                </NavLink>
+                            </>
+                        )}
                     </div>
 
                     <div className="md:hidden">
@@ -55,12 +90,31 @@ function Navbar(){
                         <NavLink to="/about" onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-100 text-green-700' : 'text-gray-700 hover:bg-gray-100'}`}>
                             About
                         </NavLink>
-                        <NavLink to="/login" onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-100 text-green-700' : 'text-gray-700 hover:bg-gray-100'}`}>
-                            Login
-                        </NavLink>
-                        <NavLink to="/signup" onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-600 text-white' : 'bg-green-600 text-white/95 hover:opacity-95'}`}>
-                            Sign Up
-                        </NavLink>
+                        {isAuthenticated ? (
+                            <>
+                                <NavLink to={getDashboardPath()} onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-100 text-green-700' : 'text-gray-700 hover:bg-gray-100'}`}>
+                                    Dashboard
+                                </NavLink>
+                                <div className="px-3 py-2 text-sm text-gray-600 border-t border-gray-200 mt-2">
+                                    {user?.fullName}
+                                </div>
+                                <button 
+                                    onClick={handleLogout}
+                                    className="px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 text-left text-sm"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink to="/login" onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-100 text-green-700' : 'text-gray-700 hover:bg-gray-100'}`}>
+                                    Login
+                                </NavLink>
+                                <NavLink to="/signup" onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-600 text-white' : 'bg-green-600 text-white/95 hover:opacity-95'}`}>
+                                    Sign Up
+                                </NavLink>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

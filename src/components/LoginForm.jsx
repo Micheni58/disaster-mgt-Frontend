@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { showSuccessToast, showErrorToast, showWarningToast } from "../utils/toastNotifications";
 
 function LoginForm({ onSubmit }){
     const [form, setForm] = useState({ email: '', password: '' });
     const [loading, setLoading] = useState(false);
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,17 +31,25 @@ function LoginForm({ onSubmit }){
 
         setLoading(true);
         try{
-            // TODO: replace with real auth request
-            // Simulating async request
-            await new Promise(res => setTimeout(res, 500));
+            const result = await login(form.email, form.password);
             
-            // Simulating authentication check (this would be replaced with real API call)
-            // For demo purposes, accept any email with matching password validation
-            if(form.email && form.password.length >= 6) {
-                showSuccessToast('✓ Login successful! Welcome back');
+            if(result.success) {
+                showSuccessToast(`✓ Login successful! Welcome ${result.user.fullName}`);
+                
+                // Redirect to appropriate dashboard
+                setTimeout(() => {
+                    if(result.user.role === 'Citizen') {
+                        navigate('/dashboard/citizen');
+                    } else if(result.user.role === 'Responder') {
+                        navigate('/dashboard/responder');
+                    } else if(result.user.role === 'Officer') {
+                        navigate('/dashboard/admin');
+                    }
+                }, 1000);
+                
                 if(onSubmit) onSubmit(form);
             } else {
-                showErrorToast('✗ Invalid email or password');
+                showErrorToast(`✗ ${result.error}`);
             }
         }catch(err){
             showErrorToast('Login failed. Please try again');
@@ -73,6 +85,16 @@ function LoginForm({ onSubmit }){
             <button disabled={loading} className={`w-full py-2 rounded ${loading ? 'bg-gray-400' : 'bg-green-600 text-white'}`}>
                 {loading ? 'Signing in...' : 'Sign in'}
             </button>
+
+            {/* Demo users info */}
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 text-sm">
+                <p className="font-semibold text-blue-900 mb-2">Demo Accounts:</p>
+                <div className="space-y-1 text-blue-800">
+                    <p><strong>Citizen:</strong> citizen@disaster.com / Citizen@123</p>
+                    <p><strong>Responder:</strong> responder@disaster.com / Responder@123</p>
+                    <p><strong>Officer:</strong> officer@disaster.com / Officer@123</p>
+                </div>
+            </div>
         </form>
     )
 }
