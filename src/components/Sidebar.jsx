@@ -46,7 +46,7 @@ function Sidebar() {
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden bg-green-600 text-white p-2 rounded-lg"
+        className="fixed top-4 left-4 z-50 md:hidden bg-green-700 text-white p-2 rounded-lg hover:bg-green-800 transition"
       >
         {isMobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
       </button>
@@ -54,14 +54,14 @@ function Sidebar() {
       {/* Overlay for mobile */}
       {isMobileOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-30"
+          className="fixed inset-0 bg-black bg-opacity-20 md:hidden z-10"
           onClick={() => setIsMobileOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-0 h-screen w-64 bg-green-800 text-white shadow-lg transform transition-transform duration-300 md:translate-x-0 z-40 ${
+        className={`fixed left-0 top-0 h-screen w-64 bg-green-800 text-white shadow-lg transform transition-transform duration-300 md:translate-x-0 z-40 pt-20 md:pt-0 flex flex-col ${
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -84,7 +84,7 @@ function Sidebar() {
         </div>
 
         {/* Navigation Items */}
-        <nav className="p-4 space-y-2 flex-1">
+        <nav className="p-4 space-y-2 flex-1 overflow-y-auto">
           {currentMenuItems.map((item, index) => (
             <Link
               key={index}
