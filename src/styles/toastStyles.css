@@ -1,0 +1,142 @@
+/* Toast Notifications Custom Styling */
+
+:root {
+  --toast-height: 64px;
+  --toast-gap: 16px;
+  --toast-offset: 16px;
+}
+
+/* Toaster container styling */
+[data-sonner-toaster] {
+  position: fixed;
+  pointer-events: none;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999999;
+}
+
+/* Individual toast styling */
+[data-sonner-toast] {
+  pointer-events: auto;
+  position: relative; /* IMPORTANT */
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  padding-right: 40px; /* Prevent overlap with close button */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: slideIn 0.3s ease-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+}
+
+/* Success toast styling */
+[data-sonner-toast][data-type="success"] {
+  background: rgba(16, 185, 129, 0.95);
+  color: white;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Error toast styling */
+[data-sonner-toast][data-type="error"] {
+  background: rgba(239, 68, 68, 0.95);
+  color: white;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Warning toast styling */
+[data-sonner-toast][data-type="warning"] {
+  background: rgba(245, 158, 11, 0.95);
+  color: white;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Loading toast styling */
+[data-sonner-toast][data-type="loading"] {
+  background: rgba(59, 130, 246, 0.95);
+  color: white;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Slide in animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide out animation */
+@keyframes slideOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+[data-sonner-toast][data-state="exit"] {
+  animation: slideOut 0.3s ease-out;
+}
+
+/* Toast content styling */
+[data-sonner-toast] > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Loading spinner styling */
+[data-sonner-toast] [data-sonner-spinner] {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Close button positioned TOP RIGHT */
+[data-sonner-toast] button {
+  position: absolute;   /* IMPORTANT */
+  top: 8px;             /* Move to top */
+  right: 8px;           /* Move to right */
+  background: transparent;
+  border: none;
+  color: currentColor;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+[data-sonner-toast] button:hover {
+  opacity: 1;
+}
+
+/* Responsive positioning */
+@media (max-width: 640px) {
+  [data-sonner-toaster] {
+    left: 12px;
+    right: 12px;
+  }
+}

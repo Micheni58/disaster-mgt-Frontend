@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { FaUser, FaAmbulance, FaUserShield, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { showSuccessToast, showErrorToast, showWarningToast } from "../utils/toastNotifications";
 
 function SignUpForm(){
     const [selectedRole, setSelectedRole] = useState('Citizen');
     const [form, setForm] = useState({ fullName: '', email: '', phone: '', organization: '', password: '', confirm: '' });
     const [agree, setAgree] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,9 +23,56 @@ function SignUpForm(){
     const passwordsMatch = password && form.confirm === password;
     const formValid = form.fullName && form.email && passwordValid && passwordsMatch && agree;
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(form.email)) {
+            showErrorToast('Please enter a valid email address');
+            return;
+        }
+
+        // Phone validation for responders and officers
+        if (selectedRole !== 'Citizen' && !form.phone) {
+            showWarningToast('Phone number is required for ' + selectedRole);
+            return;
+        }
+
+        // Organization validation
+        if (selectedRole !== 'Citizen' && !form.organization) {
+            showWarningToast('Organization name is required for ' + selectedRole);
+            return;
+        }
+
+        if (!agree) {
+            showWarningToast('Please agree to the terms of service and privacy policy');
+            return;
+        }
+
+        setLoading(true);
+        try {
+            // Simulate API call
+            await new Promise(res => setTimeout(res, 1000));
+            
+            showSuccessToast(`✓ Account created successfully as ${selectedRole}! Welcome aboard`);
+            
+            // Reset form
+            setForm({ fullName: '', email: '', phone: '', organization: '', password: '', confirm: '' });
+            setAgree(false);
+            setSelectedRole('Citizen');
+            
+            // TODO: Redirect to login or dashboard
+        } catch (err) {
+            showErrorToast('Account creation failed. Please try again');
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return(
         <div className="w-full flex items-center justify-center p-6">
-            <form action="" className="bg-white max-w-lg w-full p-6 rounded-lg shadow-md">
+            <form onSubmit={handleSubmit} className="bg-white max-w-lg w-full p-6 rounded-lg shadow-md">
                 <label className="font-medium block mb-3">Select Your Role</label>
                 <div className="flex justify-between gap-4 mb-6">
                     <button type="button" onClick={() => setSelectedRole('Citizen')} className={`flex-1 flex flex-col items-center p-4 rounded-2xl border-2 ${selectedRole==='Citizen' ? 'border-green-600 bg-green-50' : 'border-gray-300 hover:bg-green-50'}`}>
@@ -132,8 +181,12 @@ function SignUpForm(){
                     <span className="text-sm">I agree to the terms of service and privacy policy</span>
                 </label>
 
-                <button disabled={!formValid} className={`w-full px-2 py-2 rounded-sm mt-2 text-white font-medium ${formValid ? 'bg-green-700 hover:opacity-90' : 'bg-gray-400 cursor-not-allowed'}`}>
-                    Create Account
+                <button 
+                    type="submit"
+                    disabled={!formValid || loading} 
+                    className={`w-full px-2 py-2 rounded-sm mt-2 text-white font-medium ${formValid && !loading ? 'bg-green-700 hover:opacity-90' : 'bg-gray-400 cursor-not-allowed'}`}
+                >
+                    {loading ? 'Creating Account...' : 'Create Account'}
                 </button>
             </form>
         </div>
