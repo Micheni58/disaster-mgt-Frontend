@@ -156,8 +156,8 @@ function CitizenDashboard() {
           <h2 className='text-xl font-bold text-gray-800 mb-4'>Community Safety Updates</h2>
           <div className='grid gap-4' >
               <div className='border border-gray-300 rounded-lg p-4 bg-gray-50'>
-                  <div className='flex items-start'>
-                      <FaCalendar className='text-green-700 text-sm mr-3 mt-0.5 flex-shrink-0' />
+                  <div className='flex items-start gap-3'>
+                      <FaCalendar className='text-green-700 text-xs mt-1 ' />
                       <div className='flex-1'>
                         <p className='font-medium text-gray-800'>Fire Safety Workshop</p>
                         <p className='text-gray-600 text-sm mt-1'>Join our community fire safety training this Saturday at the community center</p>
@@ -166,8 +166,8 @@ function CitizenDashboard() {
                   </div>
               </div>
               <div className='border border-gray-300 rounded-lg p-4 bg-gray-50'>
-                  <div className='flex items-start'>
-                      <FaCalendar className='text-green-700 text-sm mr-3 mt-0.5 flex-shrink-0' />
+                  <div className='flex items-start gap-3'>
+                      <FaCalendar className='text-green-700 text-xs mt-1 ' />
                       <div className='flex-1'>
                         <p className='font-medium text-gray-800'>Emergency Preparedness Week</p>
                         <p className='text-gray-600 text-sm mt-1'>Learn how to prepare your home and family for emergencies. Free kits available</p>

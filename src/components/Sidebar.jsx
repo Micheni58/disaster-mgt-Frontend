@@ -18,7 +18,7 @@ function Sidebar() {
   const menuItems = {
     Citizen: [
       { icon: FaHome, label: 'Dashboard', path: '/dashboard/citizen' },
-      { icon: FaFileAlt, label: 'Report Incident', path: '/dashboard/citizen/report' },
+      { icon: FaFileAlt, label: 'Report Incident', path: '/citizen/report' },
       { icon: FaMapMarkedAlt, label: 'Incidents Map', path: '/dashboard/citizen/map' },
       { icon: FaBell, label: 'My Reports', path: '/dashboard/citizen/reports' },
       { icon: FaCog, label: 'Settings', path: '/dashboard/citizen/settings' }
@@ -102,7 +102,7 @@ function Sidebar() {
         <div className="p-4 border-t border-green-700">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600 hover:bg-red-700 transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg  hover:text-red-500 hover:bg-green-100 "
           >
             <FaSignOutAlt />
             <span>Logout</span>
