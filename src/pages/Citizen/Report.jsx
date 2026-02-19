@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 import { FaUpload, FaTimes, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { showSuccessToast, showErrorToast, showWarningToast, showInfoToast } from '../../utils/toastNotifications';
 
 function Report() {
   const { user } = useAuth();
@@ -42,8 +43,25 @@ function Report() {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
+
+    if (files.length === 0) {
+      return;
+    }
     
-    files.forEach(file => {
+    // Validate file sizes
+    const validFiles = files.filter(file => {
+      if (file.size > 10 * 1024 * 1024) {
+        showErrorToast(`Image "${file.name}" exceeds 10MB limit`);
+        return false;
+      }
+      return true;
+    });
+
+    if (validFiles.length === 0) {
+      return;
+    }
+    
+    validFiles.forEach(file => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreviews(prev => [...prev, reader.result]);
@@ -53,8 +71,10 @@ function Report() {
 
     setFormData(prev => ({
       ...prev,
-      images: [...prev.images, ...files],
+      images: [...prev.images, ...validFiles],
     }));
+
+    showInfoToast(`${validFiles.length} image(s) added successfully`);
   };
 
   const removeImage = (index) => {
@@ -63,23 +83,42 @@ function Report() {
       ...prev,
       images: prev.images.filter((_, i) => i !== index),
     }));
+    showInfoToast('Image removed');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     // Validate required fields
-    if (!formData.incidentType || !formData.location || !formData.description || !formData.name || !formData.phoneNumber) {
-      alert('Please fill in all required fields');
+    if (!formData.incidentType) {
+      showWarningToast('Please select an incident type');
+      return;
+    }
+    if (!formData.location) {
+      showWarningToast('Please enter a location');
+      return;
+    }
+    if (!formData.description || formData.description.trim().length < 10) {
+      showWarningToast('Please provide a detailed description (at least 10 characters)');
+      return;
+    }
+    if (!formData.name) {
+      showWarningToast('Please enter your full name');
+      return;
+    }
+    if (!formData.phoneNumber) {
+      showWarningToast('Please enter your phone number');
       return;
     }
 
     // Here you would typically send the data to your backend
     console.log('Report submitted:', formData);
-    alert('Report submitted successfully!');
+    showSuccessToast('Report submitted successfully!');
     
-    // Navigate back to dashboard
-    navigate('/dashboard/citizen');
+    // Navigate back to dashboard after a brief delay
+    setTimeout(() => {
+      navigate('/dashboard/citizen');
+    }, 2000);
   };
 
   return (
