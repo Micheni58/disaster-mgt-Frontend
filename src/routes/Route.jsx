@@ -4,7 +4,6 @@ import RegisterPage from "../pages/Signup";
 import Login from "../pages/Login";
 import CitizenDashboard from "../pages/Citizen/CitizenDashboard";
 import Report from "../pages/Citizen/Report";
-import Reports from "../pages/Citizen/Reports";
 import ResponderDash from "../pages/Responder/ResponderDash";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -27,14 +26,6 @@ const routes = [
         element: (
             <ProtectedRoute allowedRoles={['Citizen']}>
                 <Report />
-            </ProtectedRoute>
-        ),
-    },
-    {
-        path: "/citizen/reports",
-        element: (
-            <ProtectedRoute allowedRoles={['Citizen']}>
-                <Reports />
             </ProtectedRoute>
         ),
     },

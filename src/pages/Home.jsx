@@ -27,46 +27,46 @@ function Home(){
             <Navbar />
             <main className="flex-1">
             <section className="bg-green-50 border-b border-green-100">
-                <div className="max-w-7xl mx-auto px-6 py-12">
-                    <div className="flex flex-col md:flex-row w-full gap-10 items-start">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+                    <div className="flex flex-col md:flex-row w-full gap-8 sm:gap-10 items-start">
                         <div className="w-full md:w-1/2">
-                            <span className="inline-block border rounded-3xl py-2 px-3 border-green-200 bg-green-50 text-green-700 font-medium">
+                            <span className="inline-block border rounded-3xl py-2 px-3 border-green-200 bg-green-50 text-green-700 text-xs sm:text-sm font-medium">
                                 <span className="text-green-500 ml-1 animate-ping">.</span> Real-time Emergency Response
                             </span>
-                            <div className="mt-5 text-3xl md:text-5xl font-bold leading-tight">
+                            <div className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
                                 <h1><span>Saving Lives Through</span><br />
                                 <span className="text-green-700">Rapid Response</span></h1>
                             </div>
-                            <div className="mt-6 text-base md:text-lg">
+                            <div className="mt-6 text-sm sm:text-base md:text-lg">
                                 <p>Advanced disaster crisis management platform connecting citizens, responders, and officials for coordinated emergency response and community resilience.</p>
                             </div>
                             <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-6">
-                                <Link to="/signup?role=citizen" className="inline-block bg-green-700 py-3 px-6 shadow-lg text-white font-medium rounded-2xl hover:shadow-2xl text-center">Report Incident</Link>
-                                <Link to="/signup?role=responder" className="inline-block bg-white py-3 px-6 border border-gray-100 rounded-2xl hover:bg-gray-50 text-center">Join as Responder</Link>
+                                <Link to="/signup?role=citizen" className="inline-block w-full sm:w-auto bg-green-700 py-3 px-6 shadow-lg text-white font-medium rounded-2xl hover:shadow-2xl text-center">Report Incident</Link>
+                                <Link to="/signup?role=responder" className="inline-block w-full sm:w-auto bg-white py-3 px-6 border border-gray-100 rounded-2xl hover:bg-gray-50 text-center">Join as Responder</Link>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6 w-full md:w-1/2">
-                          <div className="bg-white rounded-2xl py-6 px-6 hover:shadow-lg border border-gray-100  grid gap-3 items-start">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full md:w-1/2">
+                          <div className="bg-white rounded-2xl py-5 px-5 hover:shadow-lg border border-gray-100 grid gap-3 items-start">
                             <FaFire className="text-red-500 w-8 h-8" />
                             <span className="font-bold text-3xl">23</span>
                             <p className="text-gray-700">Active Incidents</p>
-                            <p className="text-green-600 text-sm">-12% from Yesterday</p>
+                            <p className="text-green-600 text-sm">-12% from yesterday</p>
                             </div>
 
-                            <div className="bg-white rounded-2xl py-4 px-6 hover:shadow-lg border border-gray-100 grid items-start">
+                            <div className="bg-white rounded-2xl py-5 px-5 hover:shadow-lg border border-gray-100 grid items-start">
                                 <FaCheckCircle className="text-emerald-500 w-8 h-8" />
                                 <span className="font-bold text-3xl">147</span>
                                 <p>Resolved today</p>
                                 <p className="text-green-600">+8% from yesterday</p>
                             </div>
-                            <div className="bg-white rounded-2xl py-4 px-6 hover:shadow-lg border border-gray-100 grid items-start">
+                            <div className="bg-white rounded-2xl py-5 px-5 hover:shadow-lg border border-gray-100 grid items-start">
                                 <FaUserFriends className="text-sky-600 w-8 h-8" />
                                 <span className="font-bold text-3xl">89</span>
                                 <p>Active Responders</p>
                                 <p className="text-green-600">Available Now</p>
                             </div>
-                            <div className="bg-white rounded-2xl py-4 px-6 hover:shadow-lg border border-gray-100 grid items-start">
+                            <div className="bg-white rounded-2xl py-5 px-5 hover:shadow-lg border border-gray-100 grid items-start">
                                 <FaClock className="text-indigo-600 w-8 h-8" />
                                 <span className="font-bold text-3xl">4.2 min</span>
                                 <p>Avg Response Time</p>
@@ -78,12 +78,12 @@ function Home(){
             </section>
 
             <section className="bg-white">
-                <div className="max-w-7xl mx-auto px-6 py-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
                     <div className="text-center">
-                        <h1 className="font-bold text-4xl">Comprehensive Crisis Management</h1>
-                        <p className="mt-8">Everything you need to manage disasters effectively and protect communities</p>
+                        <h1 className="font-bold text-2xl sm:text-4xl">Comprehensive Crisis Management</h1>
+                        <p className="mt-4 sm:mt-6 text-sm sm:text-base">Everything you need to manage disasters effectively and protect communities</p>
                     </div>
-                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-7 gap-10">
+                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-7">
                         <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg bg-green-50">
                             <span>
                                 <FaMapMarkedAlt className="mx-auto text-red-500 w-8 h-8" />
@@ -130,11 +130,11 @@ function Home(){
                 </div>
             </section>
             <section className="bg-green-50">
-                <div className="max-w-7xl mx-auto px-6 py-12">
-                    <div className="text-center font-bold text-2xl">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+                    <div className="text-center font-bold text-xl sm:text-2xl">
                         <h1>Supported Emergency Types</h1>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 mt-8 sm:mt-10">
                         <div className="border border-gray-200 bg-white p-4 text-center rounded-2xl hover:shadow-lg h-30">
                             <span>
                                 <FaFire className="mx-auto text-red-500 w-8 h-8" />
@@ -186,22 +186,22 @@ function Home(){
                     </div>
                 </div>
             </section>
-            <section className="grid sm:grid-cols-1 lg:grid-cols-4 gap-10 text-center border-t border-b border-green-200 mt-10 p-6 bg-green-100 ">
+            <section className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 text-center border-t border-b border-green-200 mt-10 p-5 sm:p-6 bg-green-100">
                 <div>
-                    <p className="font-bold text-green-800 text-4xl">50K+</p>
-                    <p>Users Protected</p>
+                    <p className="font-bold text-green-800 text-2xl sm:text-4xl">50K+</p>
+                    <p className="text-sm sm:text-base">Users Protected</p>
                 </div>
                 <div>
-                    <p className="font-bold text-green-800 text-4xl">99.9%</p>
-                    <p>Uptime Reliability</p>
+                    <p className="font-bold text-green-800 text-2xl sm:text-4xl">99.9%</p>
+                    <p className="text-sm sm:text-base">Uptime Reliability</p>
                 </div>
                 <div>
-                    <p className="font-bold text-green-800 text-4xl">2.5min</p>
-                    <p>Avg Response Time</p>
+                    <p className="font-bold text-green-800 text-2xl sm:text-4xl">2.5min</p>
+                    <p className="text-sm sm:text-base">Avg Response Time</p>
                 </div>
                 <div>
-                    <p className="font-bold text-green-800 text-4xl">24/7</p>
-                    <p>Support Available</p>
+                    <p className="font-bold text-green-800 text-2xl sm:text-4xl">24/7</p>
+                    <p className="text-sm sm:text-base">Support Available</p>
                 </div>
             </section>
         </main>

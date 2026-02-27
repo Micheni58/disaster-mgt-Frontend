@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -19,6 +19,17 @@ function Navbar(){
         if(user?.role === 'Officer') return '/dashboard/admin';
         return '/';
     };
+
+    useEffect(() => {
+        const handleResize = () => {
+            if(window.innerWidth >= 768) {
+                setOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <nav className="w-full bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow">
@@ -68,7 +79,12 @@ function Navbar(){
                     </div>
 
                     <div className="md:hidden">
-                        <button aria-label="Toggle menu" onClick={() => setOpen(prev => !prev)} className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button
+                            aria-label="Toggle menu"
+                            onClick={() => setOpen(prev => !prev)}
+                            className="inline-flex items-center gap-2 p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
+                        >
+                            <span className="text-sm font-medium">Menu</span>
                             {open ? (
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -83,7 +99,7 @@ function Navbar(){
                 </div>
 
                 <div className={`md:hidden transition-all ${open ? 'block' : 'hidden'}`}>
-                    <div className="flex flex-col gap-2 py-4">
+                    <div className="flex flex-col gap-2 py-3 mb-4 border border-gray-100 rounded-xl shadow-sm">
                         <NavLink to="/" onClick={() => setOpen(false)} className={({isActive}) => `px-3 py-2 rounded-md ${isActive? 'bg-green-100 text-green-700' : 'text-gray-700 hover:bg-gray-100'}`}>
                             Home
                         </NavLink>
